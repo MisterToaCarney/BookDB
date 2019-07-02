@@ -26,7 +26,7 @@ class Book {
     this.author = author
     this.id = id
     this.price = price
-    this.imageURI = dbURL + imageURI.replace(";", "")
+    this.imageURI = dbURL + imageURI
   }
 }
 
@@ -34,6 +34,7 @@ class Book {
 function loadBooksDB() {
   books = []
   var rawText = importText(dbURL + "/Books.txt") //Import text file containing books
+  console.log(rawText);
   var textLines = rawText.split("\n") //Split the text into individual lines
   for (var i = 0; i < textLines.length; i++) { //Iterate through the lines
     fields = textLines[i].split(",") // Split line into fields
