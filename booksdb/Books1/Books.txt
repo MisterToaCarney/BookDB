@@ -1,0 +1,6 @@
+Hunger Games,Suzanne Collins,0545425115,18.26,HungerGames.jpg;
+Maze Runner,James Dashner,1908435135,9.71,MazeRunner.jpg;
+An Inspector Calls,J. B. Priestley,0435232827,20.17,AnInspectorCalls.jpg;
+The Dark Knight Returns,Frank Miller,1401263119,22.57,1401263119,DarkKnight.jpg;
+Tomorrow When the War Began,John Marsden,0439829100,15.84,TomorrowWhen.jpg;
+Past Tense,Lee Child,0857503626,15.11,PastTense.jpg;

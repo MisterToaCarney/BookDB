@@ -1,0 +1,6 @@
+The Myth of Male Power,Warren Farrell Ph.D,0425181448,23.65,MythofMale.jpg;
+Lord of The Rings,J. R. R. Tolkien,0261103202,58.74,LordofTheRings.jpg;
+A Game of Thrones,George R. R. Martin,000647988X,13.58,GameofThrones.jpg;
+Twilight,Stephenie Meyer,1904233651,17.48,1401263119,twilight.jpg;
+Gotrek & Felix,William King,1784967858,24.35,GotrekFelix.jpg;
+Where's Spot?,Eric Hill, 0723263663,13.36,PastTense.jpg;
