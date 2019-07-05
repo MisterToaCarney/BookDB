@@ -93,9 +93,12 @@ function displayUpdate() { // Updates the website
     `
     cartElement.appendChild(li)
   }
+  if (cart.length == 0) {
+    cartElement.innerHTML = "<p>Empty</p>"
+  }
   p = document.createElement("p")
   p.innerHTML = `Total price: $${(totalPrice).toFixed(2)} GST: $${(totalPrice * 0.15).toFixed(2)}<br>
-  Grand Total: $${(totalPrice*1.15).toFixed(2)}`
+  <strong>Grand Total: $${(totalPrice*1.15).toFixed(2)}</strong>`
   cartElement.appendChild(p)
 }
 

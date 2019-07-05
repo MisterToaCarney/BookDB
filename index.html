@@ -5,10 +5,19 @@
     <title>Book Ordering System</title>
   </head>
   <body>
-    <h1>Ordering System</h1>
+    <h1>Book Ordering System</h1>
     <div class="cart">
+      <h2>Cart</h2>
       <ul id="cart">
       </ul>
+      <form class="subMitForm">
+        <input id="firstName" type="text" placeholder="First Name">
+        <input id="lastName" type="text" placeholder="Last Name">
+        <input id="address" type="text" placeholder="Email" value="">
+        <input id="email" type="text" placeholder="Email" value="">
+        <input id="phone" type="text" placeholder="Phone Number" value="">
+        <button type="button" name="button" onclick="submitOrder()">Submit Order</button>
+      </form>
     </div>
     <hr>
     <div class="bookList">
