@@ -1,4 +1,4 @@
-const dbURL = "https://superconductor42.github.io/BookDB/booksdb/Books1/"
+const dbURL = "https://superconductor42.github.io/BookDB/booksdb/Books2/"
 var books = []
 var cart = []
 
@@ -39,7 +39,7 @@ function loadBooksDB() { // Loads the info from books txt file
   console.log(rawText);
   var textLines = rawText.split("\n") //Split the text into individual lines
   for (var i = 0; i < textLines.length; i++) { //Iterate through the lines
-    fields = textLines[i].split(",") // Split line into fields
+    var fields = textLines[i].split(",") // Split line into fields
     if (fields[1]) { // Check if line is valid
       var book = new Book(fields[0], fields[1], fields[2], fields[3], fields[4]) // Add each of the fields to a new book object
       books.push(book) //Add the book to the master books array
@@ -48,15 +48,15 @@ function loadBooksDB() { // Loads the info from books txt file
 }
 
 function addToCart(bookID) { //Adds items by bookid to cart
-  book = books.find((book) => {if (book.id == bookID) {return(book)}}) // locate the book by id
+  var book = books.find((book) => {if (book.id == bookID) {return(book)}}) // locate the book by id
   console.log(book);
   cart.push(book) // Add to array
   displayUpdate();
 }
 
 function removeCart(bookID) { //Removes items by bookid from cart
-  book = books.find((book) => {if (book.id == bookID) {return(book)}}) // locate the book by id
-  index = cart.indexOf(book) // Get the index of the book in the array
+  var book = books.find((book) => {if (book.id == bookID) {return(book)}}) // locate the book by id
+  var index = cart.indexOf(book) // Get the index of the book in the array
   if (index >= 0) { // If item in array,
     cart.splice(index, 1) // Remove it
   }
@@ -64,10 +64,10 @@ function removeCart(bookID) { //Removes items by bookid from cart
 }
 
 function displayUpdate() { // Updates the website
-  bookList = document.getElementById('bookList') // Get the list of books
+  var bookList = document.getElementById('bookList') // Get the list of books
   bookList.innerHTML = ""
   for (var i = 0; i < books.length; i++) {
-    li = document.createElement("LI") //Create a list item
+    var li = document.createElement("LI") //Create a list item
     //Construct a template for the book
     li.innerHTML = `
     <p>${books[i].title} by ${books[i].author}</p>
@@ -78,12 +78,12 @@ function displayUpdate() { // Updates the website
     `
     bookList.appendChild(li); //Add the list item to the HTML doc
   }
-  cartElement = document.getElementById('cart') // Get the element containing the cart
+  var cartElement = document.getElementById('cart') // Get the element containing the cart
   cartElement.innerHTML = ""
-  totalPrice = 0
+  var totalPrice = 0
   for (var i = 0; i < cart.length; i++) {
     totalPrice += Number(cart[i].price)
-    li = document.createElement("LI")
+    var li = document.createElement("LI")
     li.innerHTML = `
     <p>${cart[i].title} by ${cart[i].author}<br>
     Price: $${cart[i].price} GST: $${cart[i].gstOnly} Full Price: $${cart[i].priceGST}
@@ -95,7 +95,7 @@ function displayUpdate() { // Updates the website
   if (cart.length == 0) {
     cartElement.innerHTML = "<p>Empty</p>"
   }
-  p = document.createElement("p")
+  var p = document.createElement("p")
   p.innerHTML = `Total price: $${(totalPrice).toFixed(2)} GST: $${(totalPrice * 0.15).toFixed(2)}<br>
   <strong>Grand Total: $${(totalPrice*1.15).toFixed(2)}</strong>`
   cartElement.appendChild(p)
@@ -130,19 +130,19 @@ function validatePhone(inputPhone) { //Validate entered phone number
 }
 
 function submitOrder() { // Runs when user clicks submit order
-  firstNameElement = document.getElementById('firstName') // Get the array elements
-  lastNameElement = document.getElementById('lastName')
-  addressElement = document.getElementById('address')
-  emailElement = document.getElementById('email')
-  phoneElement = document.getElementById('phone')
+  var firstNameElement = document.getElementById('firstName') // Get the array elements
+  var lastNameElement = document.getElementById('lastName')
+  var addressElement = document.getElementById('address')
+  var emailElement = document.getElementById('email')
+  var phoneElement = document.getElementById('phone')
 
-  firstNameValid = validateName(firstNameElement.value) //Run the validators on the inputs
-  lastNameValid = validateName(lastNameElement.value)
-  addressValid = validateAddress(addressElement.value)
-  emailValid = validateEmail(emailElement.value)
-  phoneValid = validatePhone(phoneElement.value)
+  var firstNameValid = validateName(firstNameElement.value) //Run the validators on the inputs
+  var lastNameValid = validateName(lastNameElement.value)
+  var addressValid = validateAddress(addressElement.value)
+  var emailValid = validateEmail(emailElement.value)
+  var phoneValid = validatePhone(phoneElement.value)
 
-  errors = document.getElementById('errors') // Get the element used to display any errors.
+  var errors = document.getElementById('errors') // Get the element used to display any errors.
   firstNameElement.style.borderColor = null // Set the textareas to default color
   lastNameElement.style.borderColor = null
   addressElement.style.borderColor = null
