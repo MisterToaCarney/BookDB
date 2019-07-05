@@ -1,4 +1,7 @@
-const dbURL = "https://superconductor42.github.io/BookDB/booksdb/Books2/"
+// Uncomment one of the two lines below to switch text files
+const dbURL = "https://superconductor42.github.io/BookDB/booksdb/Books1/"
+//const dbURL = "https://superconductor42.github.io/BookDB/booksdb/Books2/"
+
 var books = []
 var cart = []
 
@@ -130,7 +133,7 @@ function validateEmail(inputEmail) { // Validate entered email address
 }
 
 function validatePhone(inputPhone) { //Validate entered phone number
-  if (isNaN(inputPhone) || inputPhone.length == 0) { // If is not a number or is empty
+  if (isNaN(inputPhone) || inputPhone.length == 0 || inputPhone.length > 15) { // If is not a number or is empty
     return(false) //Input is invalid
   }
   return(true) //Input is valid
@@ -188,9 +191,10 @@ function submitOrder() { // Runs when user clicks submit order
   }
   if (masterValid) {
     var cartStr = ""
-    for (var i = 0; i < cart.length; i++) {
-      cartStr += `- ${cart[i].id} $${cart[i].priceGST}\n`
+    for (var i = 0; i < cart.length; i++) { // Iterate through the items in the cart
+      cartStr += `- ${cart[i].id} $${cart[i].priceGST}\n` // Append this templated string to cartStr
     }
+    // Compose a template for the email
     var body = `
 Book Order
 Name: ${firstNameElement.value} ${lastNameElement.value}
