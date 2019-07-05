@@ -33,7 +33,6 @@ class Book {
   }
 }
 
-
 function loadBooksDB() { // Loads the info from books txt file
   books = []
   var rawText = importText(dbURL + "/Books.txt") //Import text file containing books
@@ -48,14 +47,14 @@ function loadBooksDB() { // Loads the info from books txt file
   }
 }
 
-function addToCart(bookID) {
+function addToCart(bookID) { //Adds items by bookid to cart
   book = books.find((book) => {if (book.id == bookID) {return(book)}}) // locate the book by id
   console.log(book);
   cart.push(book) // Add to array
   displayUpdate();
 }
 
-function removeCart(bookID) {
+function removeCart(bookID) { //Removes items by bookid from cart
   book = books.find((book) => {if (book.id == bookID) {return(book)}}) // locate the book by id
   index = cart.indexOf(book) // Get the index of the book in the array
   if (index >= 0) { // If item in array,
@@ -102,5 +101,81 @@ function displayUpdate() { // Updates the website
   cartElement.appendChild(p)
 }
 
-loadBooksDB();
-displayUpdate();
+function validateName(inputName) { // Checks if names are valid, retuns true of valid, false if otherwise
+  if (inputName.length > 128 || inputName.length == 0) { // If longer than 128 charachters or 0 characters
+    return(false) // input is invalid
+  }
+  return(true) // Input is valid
+}
+
+function validateAddress(inputAddress) {
+  if (inputAddress.length == 0) {
+    return(false) // Input is invalid
+  }
+  return(true) // Input is valid
+}
+
+function validateEmail(inputEmail) { // Validate entered email address
+  if (inputEmail.includes("@") && inputEmail.includes(".")) { //Check if email address includes a dot and an @ symbol
+    return(true) //Input is valid
+  }
+  return(false) //Input is invalid
+}
+
+function validatePhone(inputPhone) { //Validate entered phone number
+  if (isNaN(inputPhone) || inputPhone.length == 0) { // If is not a number or is empty
+    return(false) //Input is invalid
+  }
+  return(true) //Input is valid
+}
+
+function submitOrder() { // Runs when user clicks submit order
+  firstNameElement = document.getElementById('firstName') // Get the array elements
+  lastNameElement = document.getElementById('lastName')
+  addressElement = document.getElementById('address')
+  emailElement = document.getElementById('email')
+  phoneElement = document.getElementById('phone')
+
+  firstNameValid = validateName(firstNameElement.value) //Run the validators on the inputs
+  lastNameValid = validateName(lastNameElement.value)
+  addressValid = validateAddress(addressElement.value)
+  emailValid = validateEmail(emailElement.value)
+  phoneValid = validatePhone(phoneElement.value)
+
+  errors = document.getElementById('errors') // Get the element used to display any errors.
+  firstNameElement.style.borderColor = null // Set the textareas to default color
+  lastNameElement.style.borderColor = null
+  addressElement.style.borderColor = null
+  emailElement.style.borderColor = null
+  phoneElement.style.borderColor = null
+  errors.innerHTML = "" // Clear the errors
+
+  if (!firstNameValid) { // If invalid
+    errors.innerHTML += "Please enter a valid first name.<br>" // Append this error text to the errors element.
+    firstNameElement.style.borderColor = "red" // Make the respective text area red
+  }
+  if (!lastNameValid) {
+    errors.innerHTML += "Please enter a valid last name.<br>" // Append this error text to the errors element.
+    lastNameElement.style.borderColor = "red"  // Make the respective text area red
+  }
+  if (!addressValid) {
+    errors.innerHTML += "Please enter a valid address.<br>" // Append this error text to the errors element.
+    addressElement.style.borderColor = "red" // Make the respective text area red
+  }
+  if (!emailValid) {
+    errors.innerHTML += "Please enter a valid email.<br>" // Append this error text to the errors element.
+    emailElement.style.borderColor = "red" // Make the respective text area red
+  }
+  if (!phoneValid) {
+    errors.innerHTML += "Please enter a valid phone number.<br>" // Append this error text to the errors element.
+    phoneElement.style.borderColor = "red" // Make the respective text area red
+  }
+  if (cart.length == 0) { // If cart empty
+    errors.innerHTML += "Please add at least one item to the cart.<br>" // Append this error text to the errors element.
+  }
+}
+
+
+// Initial operations:
+loadBooksDB(); // Load text file contining the books
+displayUpdate(); // Update the html DOM with the newly loaded db

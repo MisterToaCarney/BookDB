@@ -3,24 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>Book Ordering System</title>
+    <link rel="stylesheet" href="master.css">
   </head>
   <body>
     <h1>Book Ordering System</h1>
+    <hr>
     <div class="cart">
       <h2>Cart</h2>
       <ul id="cart">
       </ul>
-      <form class="subMitForm">
+      <p>Enter your details below to place the order.</p>
+      <form class="submitForm">
         <input id="firstName" type="text" placeholder="First Name">
         <input id="lastName" type="text" placeholder="Last Name">
-        <input id="address" type="text" placeholder="Email" value="">
+        <input id="address" type="text" placeholder="Shipping Address" value="">
         <input id="email" type="text" placeholder="Email" value="">
         <input id="phone" type="text" placeholder="Phone Number" value="">
         <button type="button" name="button" onclick="submitOrder()">Submit Order</button>
       </form>
+      <p id="errors"></p>
     </div>
-    <hr>
     <div class="bookList">
+      <h2>Library</h2>
       <ul id="bookList">
       </ul>
     </div>
