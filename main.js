@@ -21,6 +21,13 @@ function importText(textFile) { // Imports files from remote source
     return allText;
 }
 
+function sendEmail(to, subject, body) { // Opens users' mail client
+  to = encodeURIComponent(to)
+  subject = encodeURIComponent(subject)
+  body = encodeURIComponent(body)
+  window.open(`mailto:${to}?subject=${subject}&body=${body}`);
+}
+
 class Book {
   constructor(title, author, id, price, imageURI) {
     this.title = title
@@ -80,7 +87,7 @@ function displayUpdate() { // Updates the website
   }
   var cartElement = document.getElementById('cart') // Get the element containing the cart
   cartElement.innerHTML = ""
-  var totalPrice = 0
+  totalPrice = 0 // Declare as global
   for (var i = 0; i < cart.length; i++) {
     totalPrice += Number(cart[i].price)
     var li = document.createElement("LI")
@@ -149,29 +156,54 @@ function submitOrder() { // Runs when user clicks submit order
   emailElement.style.borderColor = null
   phoneElement.style.borderColor = null
   errors.innerHTML = "" // Clear the errors
-
+  var masterValid = true
   if (!firstNameValid) { // If invalid
     errors.innerHTML += "Please enter a valid first name.<br>" // Append this error text to the errors element.
     firstNameElement.style.borderColor = "red" // Make the respective text area red
+    masterValid = false
   }
   if (!lastNameValid) {
     errors.innerHTML += "Please enter a valid last name.<br>" // Append this error text to the errors element.
     lastNameElement.style.borderColor = "red"  // Make the respective text area red
+    masterValid = false
   }
   if (!addressValid) {
     errors.innerHTML += "Please enter a valid address.<br>" // Append this error text to the errors element.
     addressElement.style.borderColor = "red" // Make the respective text area red
+    masterValid = false
   }
   if (!emailValid) {
     errors.innerHTML += "Please enter a valid email.<br>" // Append this error text to the errors element.
     emailElement.style.borderColor = "red" // Make the respective text area red
+    masterValid = false
   }
   if (!phoneValid) {
     errors.innerHTML += "Please enter a valid phone number.<br>" // Append this error text to the errors element.
     phoneElement.style.borderColor = "red" // Make the respective text area red
+    masterValid = false
   }
   if (cart.length == 0) { // If cart empty
     errors.innerHTML += "Please add at least one item to the cart.<br>" // Append this error text to the errors element.
+    masterValid = false
+  }
+  if (masterValid) {
+    var cartStr = ""
+    for (var i = 0; i < cart.length; i++) {
+      cartStr += `- ${cart[i].id} $${cart[i].priceGST}\n`
+    }
+    var body = `
+Book Order
+Name: ${firstNameElement.value} ${lastNameElement.value}
+Address: ${addressElement.value}
+Email: ${emailElement.value} Phone: ${phoneElement.value}
+
+Order Items:
+${cartStr}
+
+Expected Payment:
+$${(totalPrice*1.15).toFixed(2)}
+`
+    sendEmail("test@example.com", "New Book Order", body)
   }
 }
 
