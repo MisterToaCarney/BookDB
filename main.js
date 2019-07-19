@@ -37,9 +37,27 @@ class Book {
     this.author = author
     this.id = id
     this.price = price
-    this.priceGST = (price * 1.15).toFixed(2)
-    this.gstOnly = (price * 0.15).toFixed(2)
+    this.priceGST = this.price * 1.15
+    this.gstOnly = this.price * 0.15
     this.imageURI = dbURL + imageURI
+  }
+  getPriceGST(humanReadable=false) { // Function that returns either a human readable or machine readble price.
+    this.priceGST = this.price * 1.15
+    if (humanReadable == false) {
+      return(this.priceGST)
+    }
+    else {
+      return("$" + this.priceGST.toFixed(2))
+    }
+  }
+  getGstOnly(humanReadable=false) {
+    this.gstOnly = this.price * 0.15
+    if (humanReadable == false) {
+      return(this.gstOnly)
+    }
+    else {
+      return("$" + this.gstOnly.toFixed(2))
+    }
   }
 }
 
@@ -50,7 +68,7 @@ function loadBooksDB() { // Loads the info from books txt file
   var textLines = rawText.split("\n") //Split the text into individual lines
   for (var i = 0; i < textLines.length; i++) { //Iterate through the lines
     var fields = textLines[i].split(",") // Split line into fields
-    if (fields[1]) { // Check if line is valid
+    if (fields.length == 5) { // Check if line is valid
       var book = new Book(fields[0], fields[1], fields[2], fields[3], fields[4]) // Add each of the fields to a new book object
       books.push(book) //Add the book to the master books array
     }
@@ -82,12 +100,13 @@ function displayUpdate() { // Updates the website
     li.innerHTML = `
     <p>${books[i].title} by ${books[i].author}</p>
     <img src="${books[i].imageURI}"><br>
-    <p>Price including GST $${books[i].priceGST}</p>
+    <p>Price including GST ${books[i].getPriceGST(true)}</p>
     <button onclick="addToCart('${books[i].id}')">Add To Cart</button>
     <hr>
     `
     bookList.appendChild(li); //Add the list item to the HTML doc
   }
+
   var cartElement = document.getElementById('cart') // Get the element containing the cart
   cartElement.innerHTML = ""
   totalPrice = 0 // Declare as global
@@ -96,7 +115,7 @@ function displayUpdate() { // Updates the website
     var li = document.createElement("LI")
     li.innerHTML = `
     <p>${cart[i].title} by ${cart[i].author}<br>
-    Price: $${cart[i].price} GST: $${cart[i].gstOnly} Full Price: $${cart[i].priceGST}
+    Price: $${cart[i].price} GST: ${cart[i].getGstOnly(true)} Full Price: ${cart[i].getPriceGST(true)}
     <button onclick="removeCart('${cart[i].id}')">Remove</button>
     </p>
     `
