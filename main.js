@@ -213,7 +213,7 @@ function submitOrder() { // Runs when user clicks submit order
   if (masterValid) {
     var cartStr = ""
     for (var i = 0; i < cart.length; i++) { // Iterate through the items in the cart
-      cartStr += `- ${cart[i].id} $${cart[i].priceGST}\n` // Append this templated string to cartStr
+      cartStr += `- ${cart[i].id} ${cart[i].getPriceGST(true)}\n` // Append this templated string to cartStr
     }
     // Compose a template for the email
     var body = `
