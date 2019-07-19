@@ -79,7 +79,7 @@ function addToCart(bookID) { //Adds items by bookid to cart
   var book = books.find((book) => {if (book.id == bookID) {return(book)}}) // locate the book by id
   console.log(book);
   cart.push(book) // Add to array
-  displayUpdate();
+  cartUpdate();
 }
 
 function removeCart(bookID) { //Removes items by bookid from cart
@@ -88,10 +88,10 @@ function removeCart(bookID) { //Removes items by bookid from cart
   if (index >= 0) { // If item in array,
     cart.splice(index, 1) // Remove it
   }
-  displayUpdate();
+  cartUpdate();
 }
 
-function displayUpdate() { // Updates the website
+function libraryUpdate() { // Updates the library
   var bookList = document.getElementById('bookList') // Get the list of books
   bookList.innerHTML = ""
   for (var i = 0; i < books.length; i++) {
@@ -106,7 +106,9 @@ function displayUpdate() { // Updates the website
     `
     bookList.appendChild(li); //Add the list item to the HTML doc
   }
+}
 
+function cartUpdate() {
   var cartElement = document.getElementById('cart') // Get the element containing the cart
   cartElement.innerHTML = ""
   totalPrice = 0 // Declare as global
@@ -233,4 +235,5 @@ $${(totalPrice*1.15).toFixed(2)}
 
 // Initial operations:
 loadBooksDB(); // Load text file contining the books
-displayUpdate(); // Update the html DOM with the newly loaded db
+libraryUpdate(); // Update the html DOM with the newly loaded db
+cartUpdate(); // Show the empty cart
