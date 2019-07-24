@@ -36,12 +36,20 @@ class Book {
     this.title = title
     this.author = author
     this.id = id
-    this.price = price
+    this.price = Number(price)
     this.priceGST = this.price * 1.15
     this.gstOnly = this.price * 0.15
     this.imageURI = dbURL + imageURI
   }
-  getPriceGST(humanReadable=false) { // Function that returns either a human readable or machine readble price.
+  getPriceOnly(humanReadable=false) { // Method that retuns either a human readble or machine readable price exclusing GST.
+    if (humanReadable == false) {
+      return(this.price)
+    }
+    else {
+      return("$" + this.price.toFixed(2))
+    }
+  }
+  getPriceGST(humanReadable=false) { // Method that returns either a human readable or machine readble price including gst.
     this.priceGST = this.price * 1.15
     if (humanReadable == false) {
       return(this.priceGST)
@@ -50,7 +58,7 @@ class Book {
       return("$" + this.priceGST.toFixed(2))
     }
   }
-  getGstOnly(humanReadable=false) {
+  getGstOnly(humanReadable=false) { // Method that returns either a human or machine readble GST cost.
     this.gstOnly = this.price * 0.15
     if (humanReadable == false) {
       return(this.gstOnly)
@@ -113,11 +121,11 @@ function cartUpdate() {
   cartElement.innerHTML = ""
   totalPrice = 0 // Declare as global
   for (var i = 0; i < cart.length; i++) {
-    totalPrice += Number(cart[i].price)
+    totalPrice += cart[i].getPriceOnly(false)
     var li = document.createElement("LI")
     li.innerHTML = `
     <p>${cart[i].title} by ${cart[i].author}<br>
-    Price: $${cart[i].price} GST: ${cart[i].getGstOnly(true)} Full Price: ${cart[i].getPriceGST(true)}
+    Price: ${cart[i].getPriceOnly(true)} GST: ${cart[i].getGstOnly(true)} Full Price: ${cart[i].getPriceGST(true)}
     <button onclick="removeCart('${cart[i].id}')">Remove</button>
     </p>
     `
